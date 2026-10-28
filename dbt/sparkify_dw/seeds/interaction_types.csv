@@ -1,0 +1,23 @@
+page,interaction_category,interaction_description_th,is_song_play,is_feedback,is_positive_feedback,is_negative_feedback,is_subscription_event,is_churn_signal
+NextSong,Playback,ฟังเพลง (เล่นเพลงถัดไป),true,false,false,false,false,false
+Thumbs Up,Feedback,กดถูกใจเพลง,false,true,true,false,false,false
+Thumbs Down,Feedback,กดไม่ถูกใจเพลง,false,true,false,true,false,true
+Add to Playlist,Engagement,เพิ่มเพลงลงเพลย์ลิสต์,false,false,false,false,false,false
+Add Friend,Social,เพิ่มเพื่อน,false,false,false,false,false,false
+Roll Advert,Advertising,แสดงโฆษณา (Free tier),false,false,false,false,false,true
+Upgrade,Subscription,เข้าหน้าอัปเกรด,false,false,false,false,true,false
+Submit Upgrade,Subscription,ยืนยันอัปเกรดเป็น Paid,false,false,false,false,true,false
+Downgrade,Subscription,เข้าหน้าดาวน์เกรด,false,false,false,false,true,true
+Submit Downgrade,Subscription,ยืนยันดาวน์เกรดเป็น Free,false,false,false,false,true,true
+Cancel,Churn,เข้าหน้ายกเลิกบริการ,false,false,false,false,true,true
+Cancellation Confirmation,Churn,ยืนยันยกเลิกบริการ (Churn),false,false,false,false,true,true
+Home,Navigation,หน้าแรก,false,false,false,false,false,false
+About,Navigation,หน้าเกี่ยวกับ,false,false,false,false,false,false
+Settings,Account,ตั้งค่าบัญชี,false,false,false,false,false,false
+Save Settings,Account,บันทึกการตั้งค่า,false,false,false,false,false,false
+Help,Support,หน้าช่วยเหลือ,false,false,false,false,false,true
+Error,Support,เกิดข้อผิดพลาด,false,false,false,false,false,true
+Logout,Session,ออกจากระบบ,false,false,false,false,false,false
+Login,Session,เข้าสู่ระบบ,false,false,false,false,false,false
+Register,Session,สมัครสมาชิก,false,false,false,false,false,false
+Submit Registration,Session,ยืนยันสมัครสมาชิก,false,false,false,false,false,false

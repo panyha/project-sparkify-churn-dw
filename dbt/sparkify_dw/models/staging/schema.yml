@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_event_logs
+    description: Event log ที่ทำความสะอาดแล้ว — แปลง timestamp, ตัด guest, ตัดแถวซ้ำ
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+      - name: user_id
+        tests: [not_null]
+      - name: event_ts
+        tests: [not_null]
+      - name: level
+        tests:
+          - accepted_values:
+              values: ['free', 'paid']
+      - name: page
+        tests:
+          - relationships:
+              to: ref('interaction_types')
+              field: page
+
+  - name: stg_song_plays
+    description: เวลาฟังจริงและการข้ามเพลงของแต่ละการเล่นเพลง (NextSong)
+    columns:
+      - name: event_id
+        tests: [unique, not_null]

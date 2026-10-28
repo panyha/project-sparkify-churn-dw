@@ -1,0 +1,112 @@
+version: 2
+
+models:
+  - name: dim_datetime
+    description: มิติเวลา ระดับชั่วโมง (วัน สัปดาห์ เดือน ชั่วโมง ช่วงเวลาของวัน วันธรรมดา/วันหยุด) — ตอบโจทย์ช่วงเวลาของวัน
+    columns:
+      - name: datetime_key
+        tests: [unique, not_null]
+
+  - name: dim_user
+    description: ข้อมูลผู้ใช้ (เพศ วันสมัคร ระดับปัจจุบัน) + สถานะ churn / อายุสมาชิก
+    columns:
+      - name: user_key
+        tests: [unique, not_null]
+
+  - name: dim_song
+    description: เพลง (ชื่อเพลง ศิลปิน ความยาว) — key '-1' = event ที่ไม่ใช่การฟังเพลง
+    columns:
+      - name: song_key
+        tests: [unique, not_null]
+
+  - name: dim_artist
+    description: ศิลปิน — key '-1' = event ที่ไม่ใช่การฟังเพลง
+    columns:
+      - name: artist_key
+        tests: [unique, not_null]
+
+  - name: dim_device
+    description: อุปกรณ์ / OS / เบราว์เซอร์ ที่แยกจาก user agent
+    columns:
+      - name: device_key
+        tests: [unique, not_null]
+
+  - name: dim_location
+    description: เมือง / รัฐ / ประเทศ ของผู้ใช้
+    columns:
+      - name: location_key
+        tests: [unique, not_null]
+
+  - name: dim_subscription
+    description: ระดับสมาชิก Free / Paid ณ เวลาที่เกิด event
+    columns:
+      - name: subscription_key
+        tests: [unique, not_null]
+
+  - name: dim_interaction_type
+    description: ประเภทพฤติกรรม (page) และหมวด เช่น Playback, Feedback, Churn
+    columns:
+      - name: interaction_type_key
+        tests: [unique, not_null]
+
+  - name: fct_user_events
+    description: >
+      Fact table — Grain: 1 แถวต่อ 1 เหตุการณ์การฟังเพลงหรือการกดปฏิสัมพันธ์บนระบบ.
+      Measures เป็น flag 0/1 และวินาที จึง SUM ได้ทุกตัว
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+      - name: datetime_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_datetime')
+              field: datetime_key
+      - name: user_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_user')
+              field: user_key
+      - name: song_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_song')
+              field: song_key
+      - name: artist_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_artist')
+              field: artist_key
+      - name: device_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_device')
+              field: device_key
+      - name: location_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_location')
+              field: location_key
+      - name: subscription_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_subscription')
+              field: subscription_key
+      - name: interaction_type_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_interaction_type')
+              field: interaction_type_key
+      - name: listened_sec
+        description: วินาทีที่ฟังจริง (เฉพาะ NextSong)
+      - name: is_skipped
+        description: 1 = ฟังไม่ถึง skip_threshold_ratio ของความยาวเพลงแล้วข้ามไปเพลงถัดไป
+      - name: is_churn
+        description: 1 = Cancellation Confirmation

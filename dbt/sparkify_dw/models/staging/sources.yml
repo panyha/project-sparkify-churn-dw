@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: ข้อมูลดิบจาก Sparkify event logs ที่โหลดด้วย scripts/load_raw_events.py (ไม่แก้ไขค่า)
+    tables:
+      - name: event_logs
+        description: 1 แถว = 1 event ที่ผู้ใช้ทำบนแอป (รวมผู้ที่ยังไม่ login ซึ่ง user_id = '')
+        loaded_at_field: loaded_at
+        columns:
+          - name: ts
+            tests: [not_null]
+          - name: page
+            tests: [not_null]
+          - name: session_id
+            tests: [not_null]

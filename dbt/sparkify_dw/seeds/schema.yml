@@ -1,0 +1,12 @@
+version: 2
+seeds:
+  - name: interaction_types
+    description: Lookup ของทุก page/action ใน event log → หมวดพฤติกรรม และ flag ที่ใช้คำนวณ KPI
+    columns:
+      - name: page
+        tests: [unique, not_null]
+  - name: subscription_levels
+    description: ระดับสมาชิก Free / Paid (ค่าบริการเป็นสมมติฐานสำหรับคำนวณรายได้)
+    columns:
+      - name: level
+        tests: [unique, not_null]

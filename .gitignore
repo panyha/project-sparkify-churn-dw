@@ -1,0 +1,10 @@
+.env
+logs/
+config/
+plugins/
+dbt/sparkify_dw/target/
+dbt/sparkify_dw/dbt_packages/
+dbt/sparkify_dw/logs/
+raw_data/*.json
+!raw_data/README.md
+__pycache__/

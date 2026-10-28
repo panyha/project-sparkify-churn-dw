@@ -1,0 +1,3 @@
+level,level_name,is_ad_supported,monthly_fee_usd,description_th
+free,Free,true,0.00,ฟังฟรี มีโฆษณาคั่น รายได้มาจากโฆษณา
+paid,Premium,false,9.99,สมาชิกรายเดือน ไม่มีโฆษณา รายได้คงที่

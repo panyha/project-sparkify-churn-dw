@@ -1,0 +1,12 @@
+sparkify_dw:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres          # service name inside docker network
+      port: 5432
+      user: dw_user
+      password: dw_pass
+      dbname: sparkify_dw
+      schema: warehouse       # base schema; models land in staging / marts / kpi
+      threads: 4

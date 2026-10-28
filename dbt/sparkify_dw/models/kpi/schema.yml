@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: kpi_user_activity_daily
+    description: "[User Engagement] DAU, MAU (rolling 30 วัน), stickiness, sessions — Line chart"
+    columns:
+      - name: full_date
+        tests: [unique, not_null]
+  - name: kpi_listening_by_level
+    description: "[Music Consumption] ชั่วโมงการฟัง Free vs Paid รายสัปดาห์/ช่วงเวลา — 100% stacked bar"
+  - name: kpi_listening_heatmap
+    description: "[คำถามธุรกิจ 1] การฟังตามวัน × ชั่วโมง — Heatmap"
+  - name: kpi_top_content_by_daypart
+    description: "[Content Popularity] Top 10 เพลงและศิลปินในแต่ละช่วงเวลา — Horizontal bar"
+  - name: kpi_churn_funnel
+    description: "[Customer Retention] Churn funnel แยกตามระดับสมาชิก — Funnel chart"
+  - name: kpi_user_churn_features
+    description: "[คำถามธุรกิจ 2] พฤติกรรมช่วง N วันสุดท้ายของผู้ใช้แต่ละคน + churn_risk_score — Churn Risk Monitor"
+    columns:
+      - name: user_id
+        tests: [unique, not_null]
+  - name: kpi_churn_signals
+    description: "เปรียบเทียบสัญญาณเตือนระหว่างผู้ใช้ที่ churn กับที่ยังอยู่"
+  - name: kpi_free_tier_ads
+    description: "[Free-Tier Commercial] โฆษณา การอัปเกรดหลังเห็นโฆษณา และรายได้โฆษณาโดยประมาณ — KPI cards"
