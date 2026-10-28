@@ -1,13 +1,31 @@
-# raw_data/
+# Raw event data
 
-ไฟล์ log ที่ pipeline จะโหลดเข้า `raw.event_logs` (รับ `*.json`, `*.json.gz`, `*.jsonl`, `*.csv` ทุกไฟล์ในโฟลเดอร์นี้)
+The pipeline loads event-log files from the top level of this folder into
+`raw.event_logs`. Supported formats are `.json`, `.json.gz`, `.jsonl`, and
+`.csv`. JSON files must contain one event per line and use the Sparkify event
+schema expected by `scripts/load_raw_events.py`.
 
-| ไฟล์ | ที่มา |
-|---|---|
-| `sparkify_events_sample.json.gz` | ข้อมูลจำลอง 250 users / ~188k events สร้างด้วย `scripts/generate_sample_data.py` (schema เดียวกับของจริง) |
+## Current data
 
-## ใช้ข้อมูลจริง (Udacity Sparkify)
-1. ดาวน์โหลด `mini_sparkify_event_data.json` (~128 MB) จาก Kaggle (ค้นหา "Sparkify mini dataset") หรือ S3 สาธารณะของ Udacity
-   `https://udacity-dsnd.s3.amazonaws.com/sparkify/mini_sparkify_event_data.json`
-2. วางไฟล์ไว้ที่โฟลเดอร์นี้ และ **ย้ายไฟล์ sample ออก** (ไม่งั้นจะโหลดทั้งสองไฟล์ปนกัน)
-3. Trigger DAG `sparkify_churn_pipeline` ใหม่ — ไม่ต้องแก้โค้ด
+This folder contains the extracted Udacity Sparkify event logs for November
+2018 (`2018-11-01-events.json` through `2018-11-30-events.json`). Keep the
+event files directly in this folder; the loader does not search subfolders or
+read ZIP archives.
+
+The original archives are kept separately in `reference_data/`:
+
+- `log_data.zip` contains the event logs. Its JSON files can be extracted
+  directly into this folder.
+- `song_data.zip` contains song metadata. The current pipeline does not load
+  or use it; song and artist attributes are currently derived from event logs.
+
+## Using a different event dataset
+
+Put the supported event file(s) directly in this folder. The loader processes
+all matching files and combines their rows, so remove or move out any other
+dataset first if you do not want the data mixed together. Do not put
+`song_data.zip` or its extracted metadata JSON files here; they are not event
+logs and do not match the event schema.
+
+Raw event files are ignored by Git. Do not force-add real user data to the
+public repository.

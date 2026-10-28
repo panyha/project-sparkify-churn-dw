@@ -27,8 +27,11 @@ project-sparkify-churn-dw/
 ├── init/
 │   └── 01_create_sparkify_db.sql ← สร้าง database sparkify_dw + schema raw ตอน Postgres เริ่มครั้งแรก
 ├── raw_data/
-│   ├── README.md                 ← วิธีเปลี่ยนไปใช้ข้อมูล Sparkify จริง
-│   └── sparkify_events_sample.json.gz   ← ข้อมูลตัวอย่าง 250 users / ~188k events
+│   ├── README.md                 ← รูปแบบไฟล์ event log และวิธีเตรียมข้อมูล
+│   └── 2018-11-01-events.json … 2018-11-30-events.json ← event logs ที่ pipeline โหลด
+├── reference_data/
+│   ├── log_data.zip              ← ไฟล์ต้นฉบับของ event logs
+│   └── song_data.zip             ← metadata เพลง (pipeline ปัจจุบันยังไม่ใช้)
 ├── scripts/
 │   ├── generate_sample_data.py   ← สร้างข้อมูลจำลอง (schema เหมือน Sparkify จริง)
 │   └── load_raw_events.py        ← E+L: อ่าน JSON ด้วย pandas → COPY เข้า raw.event_logs
@@ -187,7 +190,7 @@ Add database → PostgreSQL · Host `postgres` · Port `5432` · DB `sparkify_dw
 - ช่วง **Evening (17–21 น.)** มียอดเล่นเพลงสูงสุด
 - กลุ่มที่กด Thumbs Down มาก มี churn rate 76% เทียบกับค่าฐาน 24%
 
-> ⚠️ ข้อมูลตัวอย่างถูก **จำลองให้มีรูปแบบเหล่านี้** เพื่อทดสอบ dashboard — ตัวเลขจริงสำหรับรายงานต้องได้จากการรันกับ `mini_sparkify_event_data.json` (ดู `raw_data/README.md`)
+> ⚠️ ตัวเลขในตารางนี้มาจาก **ข้อมูลจำลอง** เพื่อทดสอบ dashboard ไม่ใช่ผลจาก event logs ปัจจุบันใน `raw_data/` หากต้องการผลจากข้อมูลชุดปัจจุบัน ให้รัน pipeline ใหม่และใช้ผลลัพธ์ที่ได้แทน ตัว loader จะอ่าน event files ที่รองรับทั้งหมดจากระดับบนสุดของ `raw_data/` แล้วรวมข้อมูลเข้าด้วยกัน
 
 ---
 
